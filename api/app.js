@@ -21,6 +21,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/scripts/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'));
+app.use('/scripts/angular', express.static(__dirname + '/node_modules/angular/'));
+app.use('/scripts/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 
 app.use('/', routes);
 app.use('/kettle', kettle);

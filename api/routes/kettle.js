@@ -2,20 +2,25 @@ var express = require('express');
 var router = express.Router();
 
 var ws = require("nodejs-websocket")
-var status = "<no data>";
+var status = "";
 
 var server = ws.createServer(function (conn) {
     console.log("Kettle Connected")
-    conn.on("text", function (str) {
-        status = str;
+    conn.on("text", function (message) {
+        status = message;
     })
     conn.on("close", function (code, reason) {
-        console.log("Kettle Disconnected")
+        status = "";
+        console.log("Kettle Disconnected. Code:" + code + ". Reason:" + reason);
     })
 }).listen(8001)
 
 
 router.get('/status', function(req, res, next) {
+    
+    if(getConnection() == null || status == "")
+        return getKettleDisconnectedResponse(res);
+    
     res.send(status);
 });
 
@@ -23,7 +28,7 @@ router.get('/on', function(req, res, next) {
  
     var connection = getConnection();
     if(connection == null)
-        return res.send("No kettle connected");
+        return getKettleDisconnectedResponse(res);
     
     var message = getKettleCommandMessage(true);
     connection.sendText(JSON.stringify(message));
@@ -35,13 +40,17 @@ router.get('/off', function(req, res, next) {
     
     var connection = getConnection();
     if(connection == null)
-        return res.send("No kettle connected");
+        return getKettleDisconnectedResponse(res);
     
     var message = getKettleCommandMessage(false);
     connection.sendText(JSON.stringify(message));
     
     res.send("Kettle Off Command Message Sent");
 });
+
+function getKettleDisconnectedResponse(res) {
+    return res.status(503).send("Kettle Disconnected");
+}
 
 function getConnection() {
     
