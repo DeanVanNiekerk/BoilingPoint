@@ -1,5 +1,23 @@
 extends layout
 
+block pagescripts
+  script(src='/javascripts/kettleservice.js')
+  script(src='/javascripts/kettlecontroller.js')
+
+
 block content
   h1= title
-  p Welcome to #{title}
+  
+  hr/
+  
+  div(ng-app='app')
+    div(ng-controller='kettlecontroller as kettle')
+      div
+        button(type='button', ng-click='updateKettleStatus()', class="btn btn-default") Refresh
+        button(type='button', ng-click='turnKettleOn()', class="btn btn-success") Turn on
+        button(type='button', ng-click='turnKettleOff()', class="btn btn-danger") Turn off
+      
+      div
+        div.well {{kettleStatus}}
+
+
