@@ -13,6 +13,10 @@ var server = ws.createServer(function (conn) {
         status = "";
         console.log("Kettle Disconnected. Code:" + code + ". Reason:" + reason);
     })
+    conn.on("error", function (errObj) {
+        status = "";
+        console.log("Kettle Disconnected. Error:" + errObj);
+    })
 }).listen(8001)
 
 
@@ -24,7 +28,7 @@ router.get('/status', function(req, res, next) {
     res.send(status);
 });
 
-router.get('/on', function(req, res, next) {
+router.post('/on', function(req, res, next) {
  
     var connection = getConnection();
     if(connection == null)
@@ -36,7 +40,7 @@ router.get('/on', function(req, res, next) {
     res.send("Kettle On Command Message Sent");
 });
 
-router.get('/off', function(req, res, next) {
+router.post('/off', function(req, res, next) {
     
     var connection = getConnection();
     if(connection == null)

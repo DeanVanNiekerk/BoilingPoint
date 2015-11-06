@@ -15,14 +15,14 @@ app.service(
         
         this.turnKettleOn = function() {
             return $http({
-                method: "get",
+                method: "post",
                 url: "kettle/on"
             });
         }
         
         this.turnKettleOff = function() {
             return $http({
-                method: "get",
+                method: "post",
                 url: "kettle/off"
             });
         }
