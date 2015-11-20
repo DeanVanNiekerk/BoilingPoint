@@ -1,4 +1,4 @@
 ﻿function StatusModel(data) {
-    this.type = data.Type || "";
-    this.data = new DataModel(data.Data || null);
+    this.type = data ? data.Type : "";
+    this.data = new DataModel(data ? data.Data : null);
 }
