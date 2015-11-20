@@ -24,7 +24,7 @@
         <div class="page-header">
             <h1><span class="glyphicon glyphicon-fire"></span><span> BoilingPoint</span></h1>
         </div>
-        
+
         <div class="form-horizontal">
 
             <div class="form-group form-group-sm">
@@ -50,9 +50,13 @@
 
         </div>
 
-        <div class="btn-group btn-toggle">
-            <button id="toggleOnButton" class="btn btn-lg btn-default" ng-click="toggleOnOff()">ON</button>
-            <button class="btn btn-lg btn-info active" ng-click="toggleOnOff()">OFF</button>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 btn-group btn-toggle">
+                    <button id="toggleOnButton" class="col-xs-6 btn btn-lg btn-default" ng-click="toggleOnOff()">ON</button>
+                    <button class="col-xs-6 btn btn-lg btn-info active" ng-click="toggleOnOff()">OFF</button>
+                </div>
+            </div>
         </div>
 
         <!--<input class="btn btn-success btn-lg" type="button" value="Turn Kettle On" ng-click="turnKettleOn()" />
