@@ -60,6 +60,8 @@ app.use(function(err, req, res, next) {
 });
 
 
-
+// sets port 8080 to default or unless otherwise specified in the environment
+app.set('port', process.env.PORT || 8080);
+app.listen(app.get('port'));
 
 module.exports = app;
