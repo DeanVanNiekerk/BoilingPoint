@@ -12,7 +12,7 @@ app.controller('kettlecontroller', function ($scope, kettleservice) {
 		service.getKettleStatus().then(
             //Success callback
             function (response) {
-				$scope.kettleStatus = response.data;
+                  $scope.kettleStatus = response.data;
             },
             //Fail callback
             function (response) {
