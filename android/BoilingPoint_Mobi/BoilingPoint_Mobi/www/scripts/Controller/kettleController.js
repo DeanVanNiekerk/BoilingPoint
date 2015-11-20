@@ -35,11 +35,21 @@
         //    });
     };
 
+    $scope.toggleOnOff = function () {
+
+        if ($('#toggleOnButton').hasClass('active')) {
+            $scope.turnKettleOff();
+        }
+        else {
+            $scope.turnKettleOn();
+        };
+    };
+
     $scope.turnKettleOn = function () {
-        alert('turn on clicked');
+        $scope.errorResult = 'on clicked';
     };
     $scope.turnKettleOff = function () {
-        alert('turn off clicked');
+        $scope.errorResult = 'off clicked';
     };
 
     setInterval($scope.getKettleStatus(), 5000); // Time in milliseconds

@@ -21,7 +21,9 @@
 <body>
     <div ng-app="kettleApp" ng-controller="kettleController">
 
-        <h1><span class="glyphicon glyphicon-fire"></span><span> BoilingPoint</span></h1>
+        <div class="page-header">
+            <h1><span class="glyphicon glyphicon-fire"></span><span> BoilingPoint</span></h1>
+        </div>
         
         <div class="form-horizontal">
 
@@ -48,8 +50,13 @@
 
         </div>
 
-        <input class="btn btn-success btn-lg" type="button" value="Turn Kettle On" ng-click="turnKettleOn()" />
-        <input class="btn btn-danger btn-lg" type="button" value="Turn Kettle Off" ng-click="turnKettleOff()" />
+        <div class="btn-group btn-toggle">
+            <button id="toggleOnButton" class="btn btn-lg btn-default" ng-click="toggleOnOff()">ON</button>
+            <button class="btn btn-lg btn-info active" ng-click="toggleOnOff()">OFF</button>
+        </div>
+
+        <!--<input class="btn btn-success btn-lg" type="button" value="Turn Kettle On" ng-click="turnKettleOn()" />
+        <input class="btn btn-danger btn-lg" type="button" value="Turn Kettle Off" ng-click="turnKettleOff()" />-->
 
         <p><span ng-bind="errorResult"></span></p>
     </div>
@@ -68,7 +75,7 @@
     <script src="scripts/Service/kettleService.js"></script>    
     <script src="scripts/Controller/kettleController.js"></script>
     
-   
+    <script src="scripts/sliderToggle.js"></script>
 
     <!-- Init the angular app -->
     <script type="text/javascript">kettleApp.initialize();</script>
