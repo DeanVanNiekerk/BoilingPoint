@@ -17,7 +17,7 @@ var server = ws.createServer(function (conn) {
         status = "";
         console.log("Kettle Disconnected. Error:" + errObj);
     })
-}).listen(8001)
+}).listen(443)
 
 
 router.get('/status', function(req, res, next) {
