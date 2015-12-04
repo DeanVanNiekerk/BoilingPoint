@@ -7,7 +7,6 @@ var status = "";
 var server = ws.createServer(function (conn) {
     console.log("Kettle Connected")
     conn.on("text", function (message) {
-        console.log("Message from Kettle: " + message)
         status = message;
     })
     conn.on("close", function (code, reason) {
@@ -26,7 +25,7 @@ router.get('/status', function(req, res, next) {
     if(getConnection() == null || status == "")
         return getKettleDisconnectedResponse(res);
     
-    res.json(JSON.parse(status));
+    res.send(status);
 });
 
 router.post('/on', function(req, res, next) {

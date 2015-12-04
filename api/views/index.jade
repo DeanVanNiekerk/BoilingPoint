@@ -6,22 +6,18 @@ block pagescripts
 
 
 block content
-  h1
-    span.glyphicon.glyphicon-fire
-    = ' ' + title 
-  
+  h1= title
   
   hr/
   
   div(ng-app='app')
     div(ng-controller='kettlecontroller as kettle')
       div
-        //button(type='button', ng-click='updateKettleStatus()', class="btn btn-default") Refresh
-        button(type='button', ng-click='turnKettleOn()', class="btn btn-success") Turn Kettle On
-        button(type='button', ng-click='turnKettleOff()', class="btn btn-danger") Turn Kettle Off
+        button(type='button', ng-click='updateKettleStatus()', class="btn btn-default") Refresh
+        button(type='button', ng-click='turnKettleOn()', class="btn btn-success") Turn on
+        button(type='button', ng-click='turnKettleOff()', class="btn btn-danger") Turn off
       
       div
-        h3 Status
         div.well {{kettleStatus}}
 
 
