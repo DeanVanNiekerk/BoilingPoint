@@ -12,13 +12,76 @@
 
     <!-- BoilingPointMobi references -->
     <link href="css/index.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+
+    <script src="scripts/jquery-1.9.1.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
 </head>
 <body>
-    <p>Hello, your application is ready!</p>
+    <div ng-app="kettleApp" ng-controller="kettleController">
+
+        <div class="page-header">
+            <h1><span class="glyphicon glyphicon-fire"></span><span> BoilingPoint</span></h1>
+        </div>
+
+        <div class="form-horizontal">
+
+            <div class="form-group form-group-sm">
+                <label class="col-xs-4 control-label">Status</label>
+                <div class="col-xs-8">
+                    <span class="form-control-static" ng-bind="status.data.on"></span>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-xs-4 control-label">Temperature</label>
+                <div class="col-xs-8">
+                    <span class="form-control-static" ng-bind="status.data.temp"></span>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-xs-4 control-label">Level</label>
+                <div class="col-xs-8">
+                    <span class="form-control-static" ng-bind="status.data.level"></span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 btn-group btn-toggle">
+                    <button id="toggleOnButton" class="col-xs-6 btn btn-lg btn-default" ng-click="toggleOnOff()">ON</button>
+                    <button class="col-xs-6 btn btn-lg btn-info active" ng-click="toggleOnOff()">OFF</button>
+                </div>
+            </div>
+        </div>
+
+        <!--<input class="btn btn-success btn-lg" type="button" value="Turn Kettle On" ng-click="turnKettleOn()" />
+        <input class="btn btn-danger btn-lg" type="button" value="Turn Kettle Off" ng-click="turnKettleOff()" />-->
+
+        <p><span ng-bind="errorResult"></span></p>
+    </div>
 
     <!-- Cordova reference, this is added to your app when it's built. -->
     <script src="cordova.js"></script>
     <script src="scripts/platformOverrides.js"></script>
     <script src="scripts/appBundle.js"></script>
+
+    <!--<script src="../scripts/angular.min.js"></script>-->
+    <script src="scripts/angular.min.js"></script>
+
+    <script src="scripts/Model/data.js"></script>
+    <script src="scripts/Model/status.js"></script>
+    <script src="scripts/App/kettle.js"></script>
+    <script src="scripts/Service/kettleService.js"></script>    
+    <script src="scripts/Controller/kettleController.js"></script>
+    
+    <script src="scripts/sliderToggle.js"></script>
+
+    <!-- Init the angular app -->
+    <script type="text/javascript">kettleApp.initialize();</script>
 </body>
 </html>

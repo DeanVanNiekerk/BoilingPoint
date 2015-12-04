@@ -12,12 +12,18 @@ app.controller('kettlecontroller', function ($scope, kettleservice) {
 		service.getKettleStatus().then(
             //Success callback
             function (response) {
-				$scope.kettleStatus = response.data;
+                  $scope.kettleStatus = response.data;
             },
             //Fail callback
             function (response) {
-				$scope.kettleStatus = "Error Getting Status. "
-                $scope.kettleStatus += "Status Code: " + response.status;
+                  
+                  if(response.status == 503) {
+                        $scope.kettleStatus = "No kettle connected.";
+                        return;
+                  }
+                  
+                  $scope.kettleStatus = "Error Getting Status. "
+                  $scope.kettleStatus += "Status Code: " + response.status;
           });
 	};
 	
@@ -28,10 +34,14 @@ app.controller('kettlecontroller', function ($scope, kettleservice) {
             function (response) { },
             //Fail callback
             function (response) {
-                var error = "Error turning kettle on. "
-                error += "Status Code: " + response.status;
-                alert(error);
-                console.log(response);
+                  
+                  if(response.status == 503)
+                        return;
+                  
+                  var error = "Error turning kettle on. "
+                  error += "Status Code: " + response.status;
+                  alert(error);
+                  console.log(response);
           });
 	};
       
@@ -42,11 +52,17 @@ app.controller('kettlecontroller', function ($scope, kettleservice) {
             function (response) { },
             //Fail callback
             function (response) {
-                var error = "Error turning kettle off. "
-                error += "Status Code: " + response.status;
-                alert(error);
-                console.log(response);
+                  
+                  if(response.status == 503)
+                        return;
+                        
+                  var error = "Error turning kettle off. "
+                  error += "Status Code: " + response.status;
+                  alert(error);
+                  console.log(response);
           });
 	};
+      
+      setInterval($scope.updateKettleStatus(), 2000);
 			  
 });
