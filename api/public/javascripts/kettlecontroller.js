@@ -28,7 +28,7 @@ app.controller('kettlecontroller', function ($scope, kettleservice) {
                 var temp = parseInt($scope.kettleTemp);
                 if(temp > 70)
                     $scope.kettleTempState = 'danger';
-                else if(temp > 30)
+                else if(temp > 45)
                     $scope.kettleTempState = 'warning';
                 else 
                     $scope.kettleTempState = 'primary';

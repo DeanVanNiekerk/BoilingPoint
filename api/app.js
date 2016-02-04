@@ -28,6 +28,14 @@ app.use('/scripts/angular-bootstrap', express.static(__dirname + '/node_modules/
 app.use('/scripts/angular-animate', express.static(__dirname + '/node_modules/angular-animate/'));
 app.use('/scripts/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 
+//Disable caching
+app.use(function noCache(req, res, next){
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", "0");
+    next();
+});
+
 app.use('/', routes);
 app.use('/kettle', kettle);
 
