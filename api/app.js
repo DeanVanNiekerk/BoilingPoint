@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/scripts/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'));
+app.use('/scripts/bootstrap-switch', express.static(__dirname + '/node_modules/bootstrap-switch/dist/'));
 app.use('/scripts/angular', express.static(__dirname + '/node_modules/angular/'));
 app.use('/scripts/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 

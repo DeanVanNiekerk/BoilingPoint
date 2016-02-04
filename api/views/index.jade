@@ -3,6 +3,7 @@ extends layout
 block pagescripts
   script(src='/javascripts/kettleservice.js')
   script(src='/javascripts/kettlecontroller.js')
+  
 
 
 block content
@@ -16,12 +17,41 @@ block content
   div(ng-app='app')
     div(ng-controller='kettlecontroller as kettle')
       div
-        //button(type='button', ng-click='updateKettleStatus()', class="btn btn-default") Refresh
-        button(type='button', ng-click='turnKettleOn()', class="btn btn-success") Turn Kettle On
-        button(type='button', ng-click='turnKettleOff()', class="btn btn-danger") Turn Kettle Off
+        button(type='button', ng-click='turnKettleOn()', ng-disabled='kettleOn' class="btn btn-success") Turn Kettle On
+        button(type='button', ng-click='turnKettleOff()', ng-disabled='!kettleOn' class="btn btn-danger") Turn Kettle Off
+        
+      br/
+          
+      div
+        h3 Kettle Status
+        
+      hr/  
       
       div
-        h3 Status
-        div.well {{kettleStatus}}
+        h4 On
+        div(ng-if='kettleOn')
+            strong 
+                span.text-success Yes
+        div(ng-if='!kettleOn')
+            strong
+                span.text-danger No
+        
+      div
+        h4 Tempurature (todo)
+        div.progress(class='progress-striped')
+            div.progress-bar(class='progress-bar-danger' style='width: 80%')
+            
+      div
+        h4 Water Level (todo)
+        div.progress(class='progress-striped')
+            div.progress-bar(class='progress-bar-info' style='width: 30%')
+
+      br/
+      br/
+      br/
+         
+      div
+        h4 Debug
+        div.well(class='well-sm') {{kettleStatus}}
 
 
