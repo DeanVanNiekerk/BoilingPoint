@@ -6,11 +6,11 @@ app.controller('kettlecontroller', function ($scope, kettleservice) {
 	var service = kettleservice;
 	
 	$scope.kettleStatus = '';
-    
     $scope.kettleOn = false;
-    $scope.kettleTemp = '';
-    $scope.kettleLevel = '';
-    
+    $scope.kettleTemp = '0';
+    $scope.kettleTempState = 'primary';
+    $scope.kettleLevel = '0';
+    $scope.kettleConnected = false;
 	
 	$scope.updateKettleStatus = function() {
 		
@@ -18,24 +18,35 @@ app.controller('kettlecontroller', function ($scope, kettleservice) {
             //Success callback
             function (response) {
                   
-                  var data = response.data.Data;
-                  
-                  $scope.kettleStatus = JSON.stringify(data);
-                  $scope.kettleOn = (data.On.toLowerCase() == "true");
-                  
-                  console.log('data.On: ' + data.On);
+                var data = response.data.Data;
+                
+                $scope.kettleStatus = JSON.stringify(data);
+                $scope.kettleOn = (data.On.toLowerCase() == "true");
+                $scope.kettleTemp = data.Temp;
+                $scope.kettleLevel = data.Level;
+                
+                var temp = parseInt($scope.kettleTemp);
+                if(temp > 70)
+                    $scope.kettleTempState = 'danger';
+                else if(temp > 30)
+                    $scope.kettleTempState = 'warning';
+                else 
+                    $scope.kettleTempState = 'primary';
+                
+                $scope.kettleConnected = true;
                   
             },
             //Fail callback
             function (response) {
                   
-                  if(response.status == 503) {
-                        $scope.kettleStatus = "No kettle connected.";
-                        return;
-                  }
-                  
-                  $scope.kettleStatus = "Error Getting Status. "
-                  $scope.kettleStatus += "Status Code: " + response.status;
+                if(response.status == 503) {
+                    $scope.kettleConnected = false;
+                    $scope.kettleStatus = "No kettle connected.";
+                    return;
+                }
+                
+                $scope.kettleStatus = "Error Getting Status. "
+                $scope.kettleStatus += "Status Code: " + response.status;
           });
 	};
 	
