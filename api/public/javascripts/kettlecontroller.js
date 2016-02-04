@@ -6,13 +6,25 @@ app.controller('kettlecontroller', function ($scope, kettleservice) {
 	var service = kettleservice;
 	
 	$scope.kettleStatus = '';
+    
+    $scope.kettleOn = false;
+    $scope.kettleTemp = '';
+    $scope.kettleLevel = '';
+    
 	
 	$scope.updateKettleStatus = function() {
 		
 		service.getKettleStatus().then(
             //Success callback
             function (response) {
-                  $scope.kettleStatus = response.data;
+                  
+                  var data = response.data.Data;
+                  
+                  $scope.kettleStatus = JSON.stringify(data);
+                  $scope.kettleOn = (data.On == "true");
+                  
+                  console.log('data.On: ' + data.On);
+                  
             },
             //Fail callback
             function (response) {
@@ -63,6 +75,7 @@ app.controller('kettlecontroller', function ($scope, kettleservice) {
           });
 	};
       
-      setInterval($scope.updateKettleStatus(), 2000);
+    //$scope.updateKettleStatus();
+    setInterval($scope.updateKettleStatus, 2000);
 			  
 });
