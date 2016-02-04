@@ -21,7 +21,7 @@ app.controller('kettlecontroller', function ($scope, kettleservice) {
                   var data = response.data.Data;
                   
                   $scope.kettleStatus = JSON.stringify(data);
-                  $scope.kettleOn = (data.On == "true");
+                  $scope.kettleOn = (data.On.toLowerCase() == "true");
                   
                   console.log('data.On: ' + data.On);
                   
