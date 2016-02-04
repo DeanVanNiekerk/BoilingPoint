@@ -25,7 +25,7 @@ namespace BoilingPoint_RaspBerryPi
 {
     public sealed partial class MainPage : Page
     {
-        private const int LED_PIN = 47;
+        private const int LED_PIN = 27;
         private GpioPin pin;
         private GpioPinValue pinValue;
 
@@ -41,7 +41,7 @@ namespace BoilingPoint_RaspBerryPi
         private readonly Uri echoService = new Uri("ws://finetent.dedicated.co.za:8001", UriKind.Absolute);
         //private readonly Uri echoService = new Uri("ws://firefly:8001", UriKind.Absolute);
         private string read = "";
-        private bool activated;
+        private bool activated = false;
         private string status = "";
 
         public MainPage()
@@ -50,7 +50,7 @@ namespace BoilingPoint_RaspBerryPi
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(5000);
-            timer.Tick += Timer_Tick1;
+            timer.Tick += Timer_Tick;
 
             InitGPIO();
 
@@ -66,7 +66,7 @@ namespace BoilingPoint_RaspBerryPi
             Connect();
         }
 
-        private void Timer_Tick1(object sender, object e)
+        private void Timer_Tick(object sender, object e)
         {
             if (activated)
             {
@@ -129,12 +129,12 @@ namespace BoilingPoint_RaspBerryPi
         {
             if (value)
             {
-                pinValue = GpioPinValue.High;
+                pinValue = GpioPinValue.Low;
                 activated = true;
             }
             else
             {
-                pinValue = GpioPinValue.Low;
+                pinValue = GpioPinValue.High;
                 activated = false;
             }
 
@@ -156,11 +156,11 @@ namespace BoilingPoint_RaspBerryPi
 
             pin = gpio.OpenPin(LED_PIN);
             pinValue = GpioPinValue.High;
-            pin.Write(pinValue);
             pin.SetDriveMode(GpioPinDriveMode.Output);
 
+            pin.Write(pinValue);
+            
             GpioStatus.Text = "GPIO pin initialized correctly.";
-
         }
 
         private async void Connect()
@@ -190,7 +190,8 @@ namespace BoilingPoint_RaspBerryPi
                 var _msgWriter = new DataWriter(_msgWebSocket.OutputStream);
                 _msgWriter.UnicodeEncoding = UnicodeEncoding.Utf8;
 
-                var packet = "{\"Type\":\"2\",\"Data\":{\"On\":\"true\",\"Temp\":\"35\",\"Level\":\"50%\"}}";
+                //var packet = "{\"Type\":\"2\",\"Data\":{\"On\":\"true\",\"Temp\":\"35\",\"Level\":\"50%\"}}";
+                var packet = StatusMessage();
                 _msgWriter.WriteString(packet);
 
                 var result = await _msgWriter.StoreAsync();
@@ -202,6 +203,22 @@ namespace BoilingPoint_RaspBerryPi
                 Connect();
             }
 
+        }
+
+        private string CreateStatus(string msg, object[] values)
+        {
+            var packet = string.Format(msg, values);
+
+            return packet;
+        }
+
+        private string StatusMessage()
+        {
+            var msg = "{{\"Type\":\"1\",\"Data\":{{\"On\":\"{0}\",\"Temp\":\"{1}\",\"Level\":\"{2}\"}}}}";
+            var str = new object[] { activated, 35, 50};
+            var packet = CreateStatus(msg, str);
+
+            return packet;
         }
 
     }
