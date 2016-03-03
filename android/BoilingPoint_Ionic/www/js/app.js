@@ -20,8 +20,8 @@ var kettleApp = angular.module('kettleApp', ['ionic'])
       // a much nicer keyboard experience.
       cordova.plugins.Keyboard.disableScroll(true);
     }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
+    //if(window.StatusBar) {
+    //  StatusBar.styleDefault();
+    //}
   });
 })

@@ -17,13 +17,13 @@
             //Success callback
             function (response) {
                 debugger;
-                var json = JSON.parse(response.data);
-                $scope.status = new StatusModel(json);
+                //var json = JSON.parse(response.data);
+                $scope.status = new StatusModel(response.data);
                 $scope.errorResult = '';
                 debugger;
                 //debug
-                var jsonPretty = JSON.stringify(json, null, '\t');
-                $("pre").text(jsonPretty);
+                var jsonPretty = JSON.stringify(response.data, null, '\t');
+                angular.element(document.getElementById('debug')).text(jsonPretty);
             },
             //Fail callback
             function (response) {
@@ -41,7 +41,7 @@
 
     $scope.toggleOnOff = function () {
 
-        if ($('#toggleOnButton').hasClass('active')) {
+        if  (angular.element(document.getElementById('toggleOnButton')).hasClass('active')) {
             $scope.turnKettleOff();
         }
         else {
