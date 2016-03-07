@@ -1,4 +1,4 @@
-﻿kettleApp.controller("kettleController", function ($scope, kettleservice) {
+﻿kettleApp.controller("kettleController", function ($scope, kettleservice, $interval) {
 
     $scope.status = new StatusModel(null);
     $scope.errorResult = '';
@@ -16,18 +16,15 @@
         service.getKettleStatus().then(
             //Success callback
             function (response) {
-                debugger;
                 //var json = JSON.parse(response.data);
                 $scope.status = new StatusModel(response.data);
                 $scope.errorResult = '';
-                debugger;
                 //debug
-                var jsonPretty = JSON.stringify(response.data, null, '\t');
-                angular.element(document.getElementById('debug')).text(jsonPretty);
+                //var jsonPretty = JSON.stringify(response.data, null, '\t');
+                //angular.element(document.getElementById('debug')).text(jsonPretty);
             },
             //Fail callback
             function (response) {
-                debugger;
                 if (response.status == 503) {
                     $scope.status = new StatusModel(null);
                     $scope.errorResult = "No kettle connected.";
@@ -40,23 +37,22 @@
     };
 
     $scope.toggleOnOff = function () {
-
-        if  (angular.element(document.getElementById('toggleOnButton')).hasClass('active')) {
-            $scope.turnKettleOff();
-        }
-        else {
+        if ($scope.status.data.onBool) {
             $scope.turnKettleOn();
+        } else {
+            $scope.turnKettleOff();
         };
     };
 
     $scope.turnKettleOn = function () {
         $scope.errorResult = 'on clicked';
-        //service.turnKettleOn()
-    };
-    $scope.turnKettleOff = function () {
-        $scope.errorResult = 'off clicked';
-        //service.turnKettleOff
+        service.turnKettleOn();
     };
 
-    setInterval($scope.getKettleStatus(), 5000); // Time in milliseconds
+    $scope.turnKettleOff = function () {
+        $scope.errorResult = 'off clicked';
+        service.turnKettleOff();
+    };
+
+    $interval($scope.getKettleStatus, 1000);
 });

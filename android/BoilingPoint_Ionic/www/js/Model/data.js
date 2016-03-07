@@ -1,10 +1,7 @@
 ﻿function DataModel(data) {
     
-    var onValue = 'Off';
-    if (data && data.On === true)
-        onValue = 'On';
-    
-    this.on = onValue;
+    this.onBool = data && data.On === "True";
+    this.onText = this.onBool === true ? "On" : "Off";
     this.temp = data ? data.Temp : 0;
     this.level = data ? data.Level : "0%";
 }

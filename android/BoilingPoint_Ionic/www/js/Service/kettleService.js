@@ -5,7 +5,6 @@
         this.baseUrl = "http://finetent.dedicated.co.za:8080/kettle/";
 
         this.getKettleStatus = function () {
-            debugger;
             return $http({
                 method: "get",
                 url: self.baseUrl + "status"
