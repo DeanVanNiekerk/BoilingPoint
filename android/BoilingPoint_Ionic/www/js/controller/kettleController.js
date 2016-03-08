@@ -58,12 +58,10 @@
     };
 
     $scope.turnKettleOn = function () {
-        $scope.errorResult = 'on clicked';
         service.turnKettleOn();
     };
 
     $scope.turnKettleOff = function () {
-        $scope.errorResult = 'off clicked';
         service.turnKettleOff();
     };
 
