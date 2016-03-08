@@ -1,1 +1,90 @@
 /* Empty. Add your own CSS if you like */
+.color-on-fire {
+    color: #f47c3c;
+}
+
+.toggle.toggle-assertive input:checked + .track {
+    border-color: #f47c3c;
+    background-color: #f47c3c;
+}
+
+.error {
+    font-size: 10px;
+    color: red;
+    background-color: #eee;
+}
+
+.debug {
+    font-size: 10px;
+    color: green;
+    background-color: #eee;
+}
+
+.meter {
+    height: 120px;
+    width: 43px;
+    position: relative;
+    background-image: url('../img/thermo.png');
+}
+
+.mercury {
+    width: 8px;
+    left: 17px;
+    bottom: 10px;
+    position: absolute;
+}
+
+.kettle {
+    height: 120px;
+    width: 120px;
+    position: relative;
+    background-image: url('../img/kettle.png');
+}
+
+.water {
+    width: 30px;
+    left: 30px;
+    bottom: 10px;
+    position: absolute;
+}
+
+
+.color-cold {
+    background-color: #337ab7;
+}
+.color-cold::-webkit-progress-bar {
+    background: #337ab7;
+}
+.color-cold::-webkit-progress-value {
+    background: #337ab7;
+} 
+.color-cold::-moz-progress-bar {
+    background: #337ab7;
+}
+
+
+.color-mild {
+    background-color: #f47c3c;
+}
+.color-mild::-webkit-progress-bar {
+    background: #f47c3c;
+}
+.color-mild::-webkit-progress-value {
+    background: #f47c3c;
+} 
+.color-mild::-moz-progress-bar {
+    background: #f47c3c;
+}
+
+.color-hot {
+    background-color: #d9534f;
+}
+.color-hot::-webkit-progress-bar {
+    background: #d9534f;
+}
+.color-hot::-webkit-progress-value {
+    background: #d9534f;
+} 
+.color-hot::-moz-progress-bar {
+    background: #d9534f;
+}

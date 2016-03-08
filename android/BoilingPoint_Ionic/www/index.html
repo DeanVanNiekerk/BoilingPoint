@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -23,21 +24,15 @@
     <script src="js/Controller/kettleController.js"></script>
 </head>
 <body ng-app="kettleApp">
-    <div class="bar bar-header bar-stable">
-        <h1 class="title">BoilingPoint</h1>
-    </div>
+    <div ng-controller="kettleController">
+        <div class="bar bar-header bar-stable">
+            <h1>
+                <span class="glyphicon glyphicon-fire" ng-class="{ 'color-on-fire': status.data.onBool }"></span>
+                <span class="title">BoilingPoint</span>
+            </h1>
+        </div>
 
-    <ion-content class="has-header reveal-animation">
-        <div ng-controller="kettleController">
-
-            
-
-            <!--<div class="page-header">
-                <h1><span class="glyphicon glyphicon-fire"></span><span> BoilingPoint</span></h1>
-            </div>-->
-
-
-            <!--<ion-toggle ng-model="status.data.onText" ng-true-value="On" ng-false-value="Off">{{status.data.onText}}</ion-toggle>-->
+        <ion-content class="has-header reveal-animation">
 
             <div class="list">
                 <label class="item item-input">
@@ -49,63 +44,29 @@
                         </div>
                     </label>
                 </label>
+                <label class="item">
+                    <div class="row">
+                        <div class="col">
+                            <div class="meter">
+                                <div class="{{tempColor}}" ng-style="{ 'height': tempHeight + 'px' }"></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="kettle">
+                                <div class="water color-cold" ng-style="{ 'height': waterHeight + 'px' }"></div>
+                            </div>
+                        </div>
+                    </div>
+                </label>
             </div>
 
-            <p><span ng-bind="status.data.onText"></span></p>
-            <p><span ng-bind="status.data.onBool"></span></p>
-            <p><span ng-bind="errorResult"></span></p>
-            <!--<label class="toggle toggle-assertive" ng-bind="status.data.onText">
-                <input type="checkbox" ng-bind="status.data.onBool">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>-->
-            <!--<div class="form-horizontal">
-
-                <div class="form-group form-group-sm">
-                    <label class="col-xs-4 control-label">Status</label>
-                    <div class="col-xs-8">
-                        <span class="form-control-static" ng-bind="status.data.on"></span>
-                    </div>
-                </div>
-
-                <div class="form-group form-group-sm">
-                    <label class="col-xs-4 control-label">Temperature</label>
-                    <div class="col-xs-8">
-                        <span class="form-control-static" ng-bind="status.data.temp"></span>
-                    </div>
-                </div>
-
-                <div class="form-group form-group-sm">
-                    <label class="col-xs-4 control-label">Level</label>
-                    <div class="col-xs-8">
-                        <span class="form-control-static" ng-bind="status.data.level"></span>
-                    </div>
-                </div>
-
-            </div>-->
-            <!--<div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-12 btn-group btn-toggle">
-                        <button id="toggleOnButton" class="col-xs-6 btn btn-lg btn-default" ng-click="toggleOnOff()">ON</button>
-                        <button class="col-xs-6 btn btn-lg btn-info active" ng-click="toggleOnOff()">OFF</button>
-                    </div>
-                </div>
-            </div>-->
-            <!--<input class="btn btn-success btn-lg" type="button" value="Turn Kettle On" ng-click="turnKettleOn()" />
-            <input class="btn btn-danger btn-lg" type="button" value="Turn Kettle Off" ng-click="turnKettleOff()" />-->
-
-            <!--<div class="bar bar-footer bar-balanced">
-                <div class="title" ng-bind="errorResult">Footer</div>
-            </div>-->
-
-            
-
-            <!--<br />
-            <br />
-            <pre id="debug"></pre>-->
-        </div>
-        <!--<script type="text/javascript">kettleApp.initialize();</script>-->
-    </ion-content>
+            <div class="card" ng-show="jsonPretty.length">
+                <div class="item item-text-wrap debug">{{jsonPretty}}</div>
+            </div>
+            <div class="card" ng-show="errorResult.length">
+                <div class="item item-text-wrap error">{{errorResult}}</div>
+            </div>
+        </ion-content>
+    </div>
 </body>
 </html>

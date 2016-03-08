@@ -2,26 +2,39 @@
 
     $scope.status = new StatusModel(null);
     $scope.errorResult = '';
+    $scope.jsonPretty = '';
+    $scope.tempColor = 'color-cold';
+    $scope.tempHeight = 0;
+    $scope.waterHeight = 0;
 
     var service = kettleservice;
-    //var service = fakekettleservice
 
     //Fetch current status from kettle service
     $scope.getKettleStatus = function () {
 
         //var data = JSON.parse('{ "Type": "2", "Data": { "On": "true", "Temp": "35", "Level": "50%" } }');
 
-        //$scope.status = new StatusModel(data);
-        //$scope.errorResult = '';
-        service.getKettleStatus().then(
+        service.getKettleStatus().then( 
             //Success callback
             function (response) {
-                //var json = JSON.parse(response.data);
                 $scope.status = new StatusModel(response.data);
+                
+
+                if ($scope.status.data.temp > 70)
+                    $scope.tempColor = 'mercury color-hot';
+                else if ($scope.status.data.temp > 45)
+                    $scope.tempColor = 'mercury color-mild';
+                else
+                    $scope.tempColor = 'mercury color-cold';
+
+                //level / (kettle height - 2xpadding)  * 100
+                $scope.tempHeight = parseInt($scope.status.data.temp / (120 - 20) * 100);
+
+                $scope.waterHeight = parseInt($scope.status.data.level / (120 - 20) * 100);
+
+                //cards
+                $scope.jsonPretty = JSON.stringify(response.data, null, '\t');
                 $scope.errorResult = '';
-                //debug
-                //var jsonPretty = JSON.stringify(response.data, null, '\t');
-                //angular.element(document.getElementById('debug')).text(jsonPretty);
             },
             //Fail callback
             function (response) {

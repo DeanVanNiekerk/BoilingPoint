@@ -5,6 +5,13 @@
 // the 2nd parameter is an array of 'requires'
 //angular.module('starter', ['ionic'])
 var kettleApp = angular.module('kettleApp', ['ionic'])
+    .directive('setHeight', function ($window) {
+    return {
+        link: function (scope, element, attrs) {
+            element.css('height', $window.innerHeight / 3);
+        }
+    }
+})
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
