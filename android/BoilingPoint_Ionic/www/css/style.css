@@ -48,6 +48,13 @@
     position: absolute;
 }
 
+.level-text {
+    text-align: center;
+}
+
+.temp-text {
+    padding-left: 20px;
+}
 
 .color-cold {
     background-color: #337ab7;
